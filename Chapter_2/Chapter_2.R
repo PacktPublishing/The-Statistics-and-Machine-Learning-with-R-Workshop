@@ -217,5 +217,59 @@ rst = tbl_A %>%
 rst
 
 ##### EXERCISE 2.11 #####
-test = readRDS("data/question_tags.rds")
-write.csv(test,"data/question_tags.csv", row.names = F)
+library(readr)
+df_questions = read_csv("https://raw.githubusercontent.com/PacktPublishing/The-Statistics-and-Machine-Learning-with-R-Workshop/main/Chapter_2/data/questions.csv")
+df_questions
+summary(df_questions$score)
+
+df_question_tags = read_csv("https://raw.githubusercontent.com/PacktPublishing/The-Statistics-and-Machine-Learning-with-R-Workshop/main/Chapter_2/data/question_tags.csv")
+df_question_tags
+
+df_tags = read_csv("https://raw.githubusercontent.com/PacktPublishing/The-Statistics-and-Machine-Learning-with-R-Workshop/main/Chapter_2/data/tags.csv")
+df_tags
+
+df_all = df_questions %>% 
+  left_join(df_question_tags, by=c("id"="question_id"))
+df_all
+
+df_all = df_all %>% 
+  left_join(df_tags, by=c("tag_id"="id"))
+df_all
+
+df_all = df_all %>% 
+  filter(!is.na(tag_name))
+rst = df_all %>% 
+  count(tag_name, sort = TRUE)
+rst
+
+library(lubridate)
+rst = df_all %>% 
+  mutate(year = year(creation_date)) %>% 
+  count(year)
+rst
+
+max(df_all$creation_date)
+
+df_all = df_all %>% 
+  mutate(month = month(creation_date),
+         year_month = format(creation_date, "%Y%m")) 
+df_all
+
+rst1 = df_all %>% 
+  count(year_month, month)
+rst1
+
+rst2 = rst1 %>% 
+  group_by(month) %>% 
+  summarise(avg_num_tag = mean(n))
+rst2
+
+rst = df_all %>% 
+  group_by(tag_name) %>% 
+  summarise(count = n(),
+            min_score = min(score),
+            mean_score = mean(score),
+            max_score = max(score)) %>% 
+  arrange(desc(count))
+rst
+
