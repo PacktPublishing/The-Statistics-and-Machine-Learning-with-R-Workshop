@@ -162,10 +162,10 @@ tidy_df %>%
   count(unit_token, sort = TRUE)
 
 get_stopwords()
-tidy_df = tidy_df %>%
+tidy_df2 = tidy_df %>%
   filter(!(unit_token %in% get_stopwords()$word)) %>% 
   count(unit_token, sort = TRUE)
-tidy_df
+tidy_df2
 
 ##### EXERCISE 3.15 #####
 count_df = tidy_df %>% 
@@ -177,7 +177,7 @@ library(tm)
 dtm = count_df %>%
   cast_dtm(id, unit_token, count)
 dtm
-as.data.frame(as.matrix(dtm), stringsAsFactors=False)s
+as.data.frame(as.matrix(dtm), stringsAsFactors=False)
 
 tidy_dtm = tidy(dtm)
 tidy_dtm
