@@ -113,6 +113,7 @@ ggplot(mtcars, aes(x=factor(cyl), fill=factor(gear))) +
   geom_bar(position = position_dodge(width=0.2))
 
 ##### EXERCISE 4.8 #####
+library(zoo)
 JohnsonJohnson2 = data.frame(qtr_earning=as.matrix(JohnsonJohnson), 
            date=as.Date(as.yearmon(time(JohnsonJohnson))))
 head(JohnsonJohnson2, n=3)
@@ -138,12 +139,18 @@ ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning,
 ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning, 
                             color=qtr)) +
   geom_line() +
-  theme(legend.position="bottom")
+  theme(legend.position="bottom",
+        axis.text=element_text(size=18),
+        axis.title=element_text(size=18,face="bold"),
+        legend.text = element_text(size=20)) 
 
 tmp = ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning, 
                             color=qtr)) +
   geom_line() +
-  theme(legend.position=c(0.1,0.8))
+  theme(legend.position=c(0.1,0.8),
+        axis.text=element_text(size=18),
+        axis.title=element_text(size=18,face="bold"),
+        legend.text = element_text(size=20))
 tmp
 
 tmp = tmp + 
@@ -165,7 +172,10 @@ tmp
 ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning, 
                             color=qtr)) +
   geom_line() +
-  theme_classic()
+  theme_classic() +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=18,face="bold"),
+        legend.text = element_text(size=20))
 
 install.packages("ggthemes")
 library(ggthemes)
@@ -173,9 +183,15 @@ library(ggthemes)
 ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning, 
                             color=qtr)) +
   geom_line() +
-  theme_fivethirtyeight()
+  theme_fivethirtyeight() +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=18,face="bold"),
+        legend.text = element_text(size=20))
 
 ggplot(JohnsonJohnson2, aes(x=date, y=qtr_earning, 
                             color=qtr)) +
   geom_line() +
-  theme_tufte()
+  theme_tufte() +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=18,face="bold"),
+        legend.text = element_text(size=20))
