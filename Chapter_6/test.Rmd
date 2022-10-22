@@ -1,0 +1,39 @@
+---
+title: "my first rmarkdown"
+output: html_document #pdf_document
+date: "2022-10-08" #"`r Sys.Date()`"
+---
+
+<!-- EXERCISE 6.1 -->
+# Introduction to statistical model
+
+A *statistical model* takes the form $y=f(x)+\epsilon$, where 
+
+* $x$ is the **input**
+* $f$ is the **model**
+* $\epsilon$ is the **random noise**
+* $y$ is the **output**
+
+
+Display source code
+```{r}
+a = 1
+a
+```
+
+Hide source code
+```{r echo=FALSE}
+a = 1
+a
+```
+
+Display warning message
+```{r}
+library(dplyr)
+```
+
+Hide warning message
+```{r warning=FALSE}
+library(dplyr)
+```
+

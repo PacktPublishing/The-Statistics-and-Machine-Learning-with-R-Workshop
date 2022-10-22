@@ -1,0 +1,246 @@
+---
+title: "Financial analysis"
+output: 
+    html_document:
+        toc: true
+        toc_float: true
+date: "2022-10-12"
+author: "Liu Peng"
+params:
+    year: 2021
+    quarter: Q1
+---
+
+# Analyzing Google's stock data since 2007
+Getting Google's stock data
+```{r warning=FALSE, message=FALSE}
+library(quantmod)
+df = getSymbols("GOOG", auto.assign=FALSE)
+```
+Total number of observations of `df`
+```{r}
+nrow(df)
+```
+Displaying the first two rows of `df`
+```{r}
+head(df, 2)
+```
+Displaying the last two rows of `df`
+```{r}
+tail(df, 2)
+```
+Plotting the stock price data
+```{r}
+chart_Series(df$GOOG.Close,name="Google Stock Price")
+```
+
+The following image can be accessed [here](https://github.com/PacktPublishing/The-Statistics-and-Machine-Learning-with-R-Workshop/blob/main/Chapter_6/Image.png).
+
+![](https://raw.githubusercontent.com/PacktPublishing/The-Statistics-and-Machine-Learning-with-R-Workshop/main/Chapter_6/Image.png){width=250px}
+
+<!-- EXERCISE 6.3 -->
+# Performing simple data analysis
+```{r warning=FALSE, message=FALSE}
+library(dplyr)
+library(tibble)
+
+df_tbl = df %>% 
+  as_tibble() %>% 
+  add_column(date = index(df), .before = 1)
+
+max_ytd = df_tbl %>% 
+  filter(date >= as.Date("2022-01-01")) %>% 
+  summarise(price = max(GOOG.Close)) %>% 
+  .$price
+
+avg_ytd = df_tbl %>% 
+  filter(date >= as.Date("2022-01-01")) %>% 
+  summarise(price = mean(GOOG.Close)) %>% 
+  .$price
+
+min_ytd = df_tbl %>% 
+  filter(date >= as.Date("2022-01-01")) %>% 
+  summarise(price = min(GOOG.Close)) %>% 
+  .$price
+```
+
+Google's **highest** year-to-date stock price is `r max_ytd`.
+
+Google's **average** year-to-date stock price is `r avg_ytd`.
+
+Google's **lowest** year-to-date stock price is `r min_ytd`.
+
+<!-- EXERCISE 6.4 -->
+# Adding plots
+
+Show the average closing price between 2019 and 2021.
+
+```{r warning=FALSE, message=FALSE}
+library(ggplot2)
+library(lubridate)
+
+df_tbl = df_tbl %>% 
+  mutate(Month = factor(month(date), levels = as.character(1:12)),
+         Year = as.character(year(date)))
+
+tmp_df = df_tbl %>% 
+  filter(Year %in% c(2019, 2020, 2021)) %>% 
+  group_by(Year, Month) %>% 
+  summarise(avg_close_price = mean(GOOG.Close)) %>% 
+  ungroup()
+
+p = ggplot(tmp_df, 
+       aes(x = Month, y = avg_close_price,
+           group = Year,
+           color = Year)) + 
+  geom_line() + 
+  theme(axis.text=element_text(size=16),
+        axis.title=element_text(size=16,face="bold"),
+        legend.text=element_text(size=20)) +
+  labs(titel = "Monthly average closing price between 2019 and 2021",
+      x = "Month of the year",
+      y = "Average closing price")
+p
+```
+
+Control the figure size via the `fig.width` and `fig.height` parameters.
+
+```{r fig.width=5, fig.height=3}
+p 
+```
+
+Align the figure using the `fig.align` parameter.
+```{r fig.width=5, fig.height=3, fig.align='center'}
+p 
+```
+
+Add figure caption via the `fig.cap` parameter.
+```{r fig.width=5, fig.height=3, fig.align='center', fig.cap='Figure 1.1 Monthly average closing price between 2019 and 2021'}
+p 
+```
+
+<!-- EXERCISE 6.5 -->
+# Adding tables 
+Printing `tmp_df` as a static summary table via the `kable()` function.
+```{r}
+library(knitr)
+
+kable(tmp_df[1:5,])
+```
+
+Changing column names via the `col.names` parameter.
+```{r}
+kable(tmp_df[1:5,], col.names=c("Year", "Month", "Average closing price"))
+```
+
+Align the table via the `align` argument.
+```{r}
+kable(tmp_df[1:5,], col.names=c("Year", "Month", "Average closing price"), align="ccc")
+```
+
+Add table caption via the `caption` parameter.
+```{r}
+kable(tmp_df[1:5,], col.names=c("Year", "Month", "Average closing price"), align="ccc", caption="Table 1.1 Average monthly closing price")
+```
+
+<!-- EXERCISE 6.6 -->
+# Code chunk options
+Display both code and result be default.
+```{r}
+tmp_df = df_tbl %>% 
+  mutate(Year = as.integer(Year)) %>% 
+  filter(Year >= max(Year)-5,
+         Year < max(Year)) %>% 
+  group_by(Year) %>% 
+  summarise(max_closing = max(GOOG.Close))
+kable(tmp_df)
+```
+
+Execute the code chunk but hide both code and result in the output by setting `include=FALSE`.
+```{r include=FALSE}
+total_max_price = max(df_tbl$GOOG.Close)
+```
+Display the code and result.
+```{r}
+total_max_price
+```
+
+Execute the code chunk and only display the result in the output by setting `echo=FALSE`.
+```{r echo=FALSE}
+kable(tmp_df)
+```
+
+Do not execute the code chunk and only display the code in the output by setting `eval=FALSE`.
+```{r eval=FALSE}
+kable(tmp_df)
+```
+
+All results are in separate blocks by default.
+```{r}
+print("This is a test message")
+warning("This is a test message")
+```
+
+Collapsing all results in one block by setting `collapse=TRUE`.
+```{r collapse=TRUE}
+print("This is a test message")
+warning("This is a test message")
+```
+
+Hide warning by setting `warning=FALSE`.
+```{r collapse=TRUE, warning=FALSE}
+print("This is a test message")
+warning("This is a test message")
+```
+
+Set global options.
+```{r include=FALSE}
+knitr::opts_chunk$set(warning=FALSE)
+```
+
+
+<!-- EXERCISE 6.7 -->
+# Generating report using parameters
+Summary statistics of year `r params$year`
+```{r}
+df_tbl %>% 
+  filter(Year == params$year) %>% 
+  select(GOOG.Close) %>% 
+  summary()
+```
+
+Summary statistics of year `r params$year` and quarter `r params$quarter`
+```{r}
+df_tbl %>% 
+  mutate(Qter = quarters(date)) %>% 
+  filter(Year == params$year,
+         Qter == params$quarter) %>% 
+  select(GOOG.Close) %>% 
+  summary()
+```
+
+
+<!-- EXERCISE 6.8 -->
+# Customizing report style
+<style>
+body {
+  color: blue;
+  background-color: #F5F5F5;
+}
+
+pre {
+  color: red;
+}
+
+#TOC {
+  color: green;
+  font-size: 16px;
+  border-color: green;
+}
+
+#header {
+  color: orange;
+  opacity: 0.8;
+  font-size: 20px;
+}
+</style>
