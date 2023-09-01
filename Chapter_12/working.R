@@ -81,7 +81,7 @@ newdata$mpg_pred = predict(model, newdata)
 ggplot(data = mtcars, aes(x = qsec, y = mpg, color = am_cat)) +
   geom_point() +
   geom_line(data = newdata, aes(y = mpg_pred)) +
-  labs(title = "Miles per Gallon vs Quarter Mile Time by Transmission Type",
+  labs(title = "mpg vs qsec by Transmission Type",
        x = "Quarter Mile Time (qsec)",
        y = "Miles per Gallon (mpg)",
        color = "Transmission Type") +
@@ -90,7 +90,8 @@ ggplot(data = mtcars, aes(x = qsec, y = mpg, color = am_cat)) +
         title = element_text(size = 15),  # Title size
         axis.title = element_text(size = 18),  # Axis title size
         legend.title = element_text(size = 16),  # Legend title size
-        legend.text = element_text(size = 16))  # Legend text size
+        legend.text = element_text(size = 16), # Legend text size
+        legend.position = "bottom")  # Legend position
 
 # Adding interaction term
 model_interaction <- lm(mpg ~ qsec * am_cat, data = mtcars)
@@ -279,7 +280,7 @@ plot(1:length(ols_coefs), ols_coefs, type="b", col="blue", pch=19, xlab="Coeffic
 lines(1:length(ridge_coefs), ridge_coefs, type="b", col="red", pch=19)
 legend("bottomright", legend=c("OLS", "Ridge"), col=c("blue", "red"), pch=19)
 
-##########
+###### Exercise 12.5 #######
 lasso_model = glmnet(X, y, alpha = 1)
 
 # Use cross-validation to find the optimal lambda
