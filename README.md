@@ -1,6 +1,6 @@
 # The Statistics and Machine Learning with R Workshop
 
-<a href="https://www.packtpub.com/product/the-statistics-and-machine-learning-with-r-workshop/9781803240305?utm_source=github&utm_medium=repository&utm_id=9781803240305"><img src="https://content.packt.com/B11725/cover_image_small.png" alt="The Statistics and Machine Learning with R Workshop" height="256px" align="right"></a>
+<a href="https://www.packtpub.com/product/the-statistics-and-machine-learning-with-r-workshop/9781803240305?utm_source=github&utm_medium=repository&utm_id=9781803240305"><img src="https://content.packt.com/B18680/cover_image_small.jpg" alt="The Statistics and Machine Learning with R Workshop" height="256px" align="right"></a>
 
 This is the code repository for [The Statistics and Machine Learning with R Workshop](https://www.packtpub.com/product/the-statistics-and-machine-learning-with-r-workshop/9781803240305?utm_source=github&utm_medium=repository&utm_id=9781803240305), published by Packt.
 
