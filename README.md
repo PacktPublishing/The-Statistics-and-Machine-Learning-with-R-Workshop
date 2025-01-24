@@ -1,6 +1,3 @@
-
-<b><p align='center'>[![Packt Sale](https://static.packt-cdn.com/assets/images/e72907cf-bf2f-4f83-bb58-6cc08a901ff9.jpeg)](https://www.packtpub.com/)</p></b>Get this book on sale at [Packt](https://www.packtpub.com/).
-
 # The Statistics and Machine Learning with R Workshop
 
 <a href="https://www.packtpub.com/product/the-statistics-and-machine-learning-with-r-workshop/9781803240305?utm_source=github&utm_medium=repository&utm_id=9781803240305"><img src="https://content.packt.com/B18680/cover_image_small.jpg" alt="The Statistics and Machine Learning with R Workshop" height="256px" align="right"></a>
