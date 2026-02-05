@@ -1,3 +1,5 @@
+<p align='center'><a href='https://www.eventbrite.com/e/machine-learning-and-generative-ai-system-design-workshop-tickets-1975103644168?aff=Github'><img src='https://static.packt-cdn.com/assets/images/packt+events/Sairam_ML_GenAI_Github_banner.png'/></a></p>
+
 # The Statistics and Machine Learning with R Workshop
 
 <a href="https://www.packtpub.com/product/the-statistics-and-machine-learning-with-r-workshop/9781803240305?utm_source=github&utm_medium=repository&utm_id=9781803240305"><img src="https://content.packt.com/B18680/cover_image_small.jpg" alt="The Statistics and Machine Learning with R Workshop" height="256px" align="right"></a>
